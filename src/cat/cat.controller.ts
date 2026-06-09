@@ -1,16 +1,19 @@
 import { Body, Controller, Get, Param, Post, Query, Redirect } from '@nestjs/common';
 import { CreateDto } from './dto/create-cat.dto';
+import { CatService } from './cat.service';
 
 @Controller('cat')
 export class CatController {
+
+    constructor(private catService: CatService) { }
     @Get()
     findAll(@Query('age') age?: string, @Query('gender') gender?: string) {
-        return `My age is ${age} and gender ${gender}`
+        return this.catService.getAll();
     }
 
     @Post()
     create(@Body() body: CreateDto) {
-        return [];
+        return this.catService.create(body)
     }
     @Get('abcd/*')
     getall(): string {
