@@ -8,11 +8,11 @@ import { LoggerMiddleware } from './middleware/logger.middleware';
 
 @Module({
   imports: [UserModule, CatModule],
-  controllers: [AppController, CatController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes(CatController);
+    consumer.apply(LoggerMiddleware).forRoutes('*');
   }
 }
